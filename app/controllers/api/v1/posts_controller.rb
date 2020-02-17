@@ -5,7 +5,7 @@ module Api
 
       # GET /posts
       def index
-        @posts = Post.all
+        @posts = Post.where(user: current_resource_owner)
 
         render json: @posts
       end

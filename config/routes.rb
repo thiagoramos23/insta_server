@@ -1,7 +1,17 @@
 Rails.application.routes.draw do
   use_doorkeeper
-  resources :posts do
-    resources :comments, only: %i[index create]
+
+  scope module: :api, defaults: { format: :json }, path: 'api' do
+    scope module: :v1, path: 'v1' do
+      devise_for :users, controllers: {
+        registrations: 'api/v1/users/registrations'
+      }, skip: %i[sessions password]
+
+      get '/me', to: 'credentials#me'
+
+      resources :posts do
+        resources :comments, only: %i[index create]
+      end
+    end
   end
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -12,6 +12,14 @@ Doorkeeper.configure do
     current_user || warden.authenticate!(scope: :user)
   end
 
+  resource_owner_from_credentials do |_|
+    user = User.find_for_database_authentication(email: params[:email])
+    if user && user&.valid_for_authentication? { user.valid_password?(params[:password]) }
+      user
+    end
+  end
+
+
   # If you didn't skip applications controller from Doorkeeper routes in your application routes.rb
   # file then you need to declare this block in order to restrict access to the web interface for
   # adding oauth authorized applications. In other case it will return 403 Forbidden response
@@ -61,7 +69,7 @@ Doorkeeper.configure do
   # want to use API mode that will skip all the views management and change the way how
   # Doorkeeper responds to a requests.
   #
-  # api_only
+  api_only
 
   # Enforce token request content type to application/x-www-form-urlencoded.
   # It is not enabled by default to not break prior versions of the gem.
@@ -75,7 +83,7 @@ Doorkeeper.configure do
   # Access token expiration time (default: 2 hours).
   # If you want to disable expiration, set this to `nil`.
   #
-  # access_token_expires_in 2.hours
+  access_token_expires_in nil
 
   # Assign custom TTL for access tokens. Will be used instead of access_token_expires_in
   # option if defined. In case the block returns `nil` value Doorkeeper fallbacks to
@@ -104,6 +112,7 @@ Doorkeeper.configure do
   # See https://doorkeeper.gitbook.io/guides/configuration/other-configurations#custom-base-controller
   #
   # base_controller 'ApplicationController'
+  base_controller 'ActionController::API'
 
   # Reuse access token for the same resource owner within an application (disabled by default).
   #
@@ -319,6 +328,7 @@ Doorkeeper.configure do
   #   http://tools.ietf.org/html/rfc6819#section-4.4.3
   #
   # grant_flows %w[authorization_code client_credentials]
+  grant_flows %w[password]
 
   # Allows to customize OAuth grant flows that +each+ application support.
   # You can configure a custom block (or use a class respond to `#call`) that must
@@ -383,6 +393,9 @@ Doorkeeper.configure do
   # skip_authorization do |resource_owner, client|
   #   client.superapp? or resource_owner.admin?
   # end
+  skip_authorization do
+    true
+  end
 
   # Configure custom constraints for the Token Introspection request.
   # By default this configuration option allows to introspect a token by another
