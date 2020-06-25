@@ -8,4 +8,6 @@ class User < ApplicationRecord
            class_name: 'Doorkeeper::AccessToken',
            foreign_key: :resource_owner_id,
            dependent: :delete_all
+
+  has_one_attached :profile_picture
 end

@@ -5,3 +5,23 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+ActiveRecord::Base.transaction do
+  user = User.create!(email: 'test@test.com', name: 'thiago', password: '123123123')
+  user.profile_picture.attach(io: File.open(Rails.root.join('public', 'woman.jpg')), filename: 'woman.jpg')
+
+  post = Post.create!(user: user, location_name: 'London, England')
+  post.post_image.attach(io: File.open(Rails.root.join('public', 'show.jpg')), filename: 'show.jpg')
+
+  post = Post.create!(user: user, location_name: 'Rio de Janeiro, Brazil')
+  post.post_image.attach(io: File.open(Rails.root.join('public', 'lake.jpg')), filename: 'lake.jpg')
+
+  post = Post.create!(user: user, location_name: 'New York, USA')
+  post.post_image.attach(io: File.open(Rails.root.join('public', 'trees.jpg')), filename: 'tress.jpg')
+
+  post = Post.create!(user: user, location_name: 'Ceará, Brazil')
+  post.post_image.attach(io: File.open(Rails.root.join('public', 'lake.jpg')), filename: 'lake.jpg')
+
+  post = Post.create!(user: user, location_name: 'Berlin, Germany')
+  post.post_image.attach(io: File.open(Rails.root.join('public', 'show.jpg')), filename: 'show.jpg')
+end

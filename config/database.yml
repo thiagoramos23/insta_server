@@ -6,8 +6,8 @@
 #
 default: &default
   adapter: postgresql
-  user: insta_user
-  password: insta_user
+  user: postgres
+  password:
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
