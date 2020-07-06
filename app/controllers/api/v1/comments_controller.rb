@@ -5,9 +5,9 @@ module Api
 
       # GET /comments
       def index
-        @comments = @post.comments
+        @comments = ::Comment.includes(:user).where(post_id: @post.id).to_a
 
-        render json: @comments
+        render json: @comments.map(&:to_h)
       end
 
       # POST /comments

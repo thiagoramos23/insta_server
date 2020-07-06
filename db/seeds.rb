@@ -12,16 +12,31 @@ ActiveRecord::Base.transaction do
 
   post = Post.create!(user: user, location_name: 'London, England')
   post.post_image.attach(io: File.open(Rails.root.join('public', 'show.jpg')), filename: 'show.jpg')
+  post.comments.create(user_id: user.id, comment_text: 'This is a text to show in the comment. I love this photo and love the way you took that picture')
 
   post = Post.create!(user: user, location_name: 'Rio de Janeiro, Brazil')
   post.post_image.attach(io: File.open(Rails.root.join('public', 'lake.jpg')), filename: 'lake.jpg')
+  post.comments.create(user_id: user.id, comment_text: 'This is a text to show in the comment. I love this photo and love the way you took that picture')
+  post.comments.create(user_id: user.id, comment_text: 'This is a text to show in the comment. I love this photo and love the way you took that picture')
+  post.comments.create(user_id: user.id, comment_text: 'This is a text to show in the comment. I love this photo and love the way you took that picture')
 
   post = Post.create!(user: user, location_name: 'New York, USA')
   post.post_image.attach(io: File.open(Rails.root.join('public', 'trees.jpg')), filename: 'tress.jpg')
+  post.comments.create(user_id: user.id, comment_text: 'This is a text to show in the comment. I love this photo and love the way you took that picture')
+  post.comments.create(user_id: user.id, comment_text: 'This is a text to show in the comment. I love this photo and love the way you took that picture')
+  post.comments.create(user_id: user.id, comment_text: 'This is a text to show in the comment. I love this photo and love the way you took that picture')
+  post.comments.create(user_id: user.id, comment_text: 'This is a text to show in the comment. I love this photo and love the way you took that picture')
+  post.comments.create(user_id: user.id, comment_text: 'This is a text to show in the comment. I love this photo and love the way you took that picture')
 
   post = Post.create!(user: user, location_name: 'Ceará, Brazil')
   post.post_image.attach(io: File.open(Rails.root.join('public', 'lake.jpg')), filename: 'lake.jpg')
+  post.comments.create(user_id: user.id, comment_text: 'This is a text to show in the comment. I love this photo and love the way you took that picture')
+  post.comments.create(user_id: user.id, comment_text: 'This is a text to show in the comment. I love this photo and love the way you took that picture')
+  post.comments.create(user_id: user.id, comment_text: 'This is a text to show in the comment. I love this photo and love the way you took that picture')
+  post.comments.create(user_id: user.id, comment_text: 'This is a text to show in the comment. I love this photo and love the way you took that picture')
 
   post = Post.create!(user: user, location_name: 'Berlin, Germany')
   post.post_image.attach(io: File.open(Rails.root.join('public', 'show.jpg')), filename: 'show.jpg')
+  post.comments.create(user_id: user.id, comment_text: 'This is a text to show in the comment. I love this photo and love the way you took that picture')
+  post.comments.create(user_id: user.id, comment_text: 'This is a text to show in the comment. I love this photo and love the way you took that picture')
 end
